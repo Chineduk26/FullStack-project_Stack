@@ -6,24 +6,32 @@ export default function chat(){
     const [text,setText]=useState('');
 
     useEffect(()=>{
-        api.get('api/chat/history')
+        api.get('/chat/history')
         .then(res => setMessages(res.data))
         .catch(err => console.log(err));
     },[]);
-    const sendMessage= async()=>{
-        if(!text)return;
-        const res = await api.post('api/chat',{
-            messages:text
-        });
-       setMessages(prev => [...prev,res.data]);
-       setText('');
-    }
+   const sendMessage = async () => {
+  if (!text) return;
+  try {
+    const res = await api.post('/chat', {
+      content: text   // ✅ must be "content"
+    });
+    // update messages state
+    setMessages(prev => [...prev, res.data]);
+    // clear input
+    setText('');
+    console.log(res.data); // optional: log response
+  } catch (err) {
+    console.error(err);
+  }
+};
+
     return(
         <div>
             <h1>Chat</h1>
             <div>
                 {messages.map(m=>(<div key= {m.id}>
-                <b>{m.role} :</b>{m.message}
+                <b>{m.role} :</b>{m.content}
                 
             </div>
                 ))}

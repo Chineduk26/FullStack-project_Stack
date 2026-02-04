@@ -1,8 +1,9 @@
-const sequelize = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-const db = new sequelize('MiniChat', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql',
-    logging: false,
+const sequelize = new Sequelize("MiniChat", "root", "", {
+  host: "localhost",
+  dialect: "mysql",
+  logging: false,
 });
-module.exports = db;
+
+module.exports = sequelize;

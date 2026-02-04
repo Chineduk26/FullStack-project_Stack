@@ -1,14 +1,12 @@
-const db = require('../config/db');
-const { DataTypes } = require('sequelize');
-const Message = db.define("Message",{
-    role:{
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    content:{
-        type: DataTypes.TEXT,
-        allowNull: false
-    }
-})
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
+
+const Message = sequelize.define("Message", {
+  role: { type: DataTypes.STRING, allowNull: false },
+  content: { type: DataTypes.TEXT, allowNull: false },
+  userId: { type: DataTypes.INTEGER, allowNull: true }
+}, {
+  timestamps: true,
+});
+
 module.exports = Message;
-// Model talk to db directly and knows no http
