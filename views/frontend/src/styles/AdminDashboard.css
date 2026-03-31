@@ -65,7 +65,7 @@
 .admin-item.user   { background: #e8f5e9; }
 .admin-item.doctor { background: #e0f7fa; }
 .admin-item.admin  { background: #fff3e0; }
-.admin-item.log    { background: #fce4ec; }
+.admin-item.log    { background: #462b34; }
 
 /* Responsive tweak */
 @media (max-width: 600px) {
