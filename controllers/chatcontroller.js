@@ -1,40 +1,34 @@
 const services = require("../services/chatServices");
 
-const sendMessage = async (req, res) => {
+// Handle sending a new message
+exports.sendMessage = async (req, res, next) => {
   try {
-    const { content } = req.body;
-
-    if (!content || typeof content !== "string") {
-      return res.status(400).json({ error: "Message content is required" });
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "You must be logged in to chat" });
     }
 
-    const message = await services.createMessage({
-      role: "user",
-      content,
-      userId: req.user?.id ?? null,
+    const result = await services.processMessage({
+      content: req.body.content,
+      userId: req.user.id,
+      source: "web",
     });
 
-    res.status(201).json({
-  id: message.id,
-  role: message.role,
-  content: message.content,
-  createdAt: message.createdAt
-});
-
+    res.json(result);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error in sendMessage:", err.message);
+    next(err);
   }
 };
 
 
-const getHistory = async (req, res) => {
+// Handle fetching chat history
+exports.getHistory = async (req, res) => {
   try {
-    const data = await services.getMessages({ userId: req.user?.id || null });
+    const userId = req.user?.id || "test-user";
+    const data = await services.getMessages(userId);
     res.status(200).json(data);
   } catch (error) {
+    console.error("Error in getHistory:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
-module.exports = { sendMessage, getHistory };

@@ -54,6 +54,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+
+.auth-container input {
+   width: 100%; padding: 12px; 
+   margin: 8px 0; border: 1px solid #ddd; 
+   border-radius: 6px; 
+   font-size: 14px;
+   }
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

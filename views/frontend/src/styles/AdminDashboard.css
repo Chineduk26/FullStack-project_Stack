@@ -1,0 +1,75 @@
+.admin-dashboard {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.admin-section {
+  margin-bottom: 25px;
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.admin-section h2 {
+  grid-column: 1 / -1;   /* heading spans full width */
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.admin-item {
+  background: #667243cb;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.admin-item span {
+  flex: 1;
+  margin-right: 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+.delete-btn {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c9302c;
+}
+
+/* Role-specific colors */
+.admin-item.user   { background: #e8f5e9; }
+.admin-item.doctor { background: #e0f7fa; }
+.admin-item.admin  { background: #fff3e0; }
+.admin-item.log    { background: #fce4ec; }
+
+/* Responsive tweak */
+@media (max-width: 600px) {
+  .admin-section {
+    grid-template-columns: 1fr; /* one card per row on small screens */
+  }
+}

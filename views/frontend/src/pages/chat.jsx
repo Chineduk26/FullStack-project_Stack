@@ -1,44 +1,58 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/api";
+import "../styles/Chat.css";
 
-export default function chat(){
-    const [messages,setMessages]=useState([]);
-    const [text,setText]=useState('');
+export default function Chat() {
+  const [messages, setMessages] = useState([]);
+  const [text, setText] = useState("");
 
-    useEffect(()=>{
-        api.get('/chat/history')
-        .then(res => setMessages(res.data))
-        .catch(err => console.log(err));
-    },[]);
-   const sendMessage = async () => {
-  if (!text) return;
-  try {
-    const res = await api.post('/chat', {
-      content: text   // ✅ must be "content"
-    });
-    // update messages state
-    setMessages(prev => [...prev, res.data]);
-    // clear input
-    setText('');
-    console.log(res.data); // optional: log response
-  } catch (err) {
-    console.error(err);
-  }
-};
+  useEffect(() => {
+    api.get("/api/chat/history")
+      .then((res) => setMessages(res.data))
+      .catch((err) => console.error("Error fetching chat history:", err));
+  }, []);
 
-    return(
-        <div>
-            <h1>Chat</h1>
-            <div>
-                {messages.map(m=>(<div key= {m.id}>
-                <b>{m.role} :</b>{m.content}
-                
-            </div>
-                ))}
-                
-        </div>
-        <input value={text} onChange={e=>setText(e.target.value)}placeholder="Types message..." /> 
+  const sendMessage = async () => {
+    if (!text.trim()) return;
+
+    const userMessage = { id: Date.now(), role: "user", content: text };
+    setMessages((prev) => [...prev, userMessage]);
+    setText(""); 
+
+    try {
+      const res = await api.post("/api/chat", { content: text });
+      const aiMessage = res.data;
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (err) {
+      console.error("Error sending message:", err);
+      // fallback reply so UI never hangs
+      const fallback = { id: Date.now(), role: "assistant", content: "(Sorry, no reply right now)" };
+      setMessages((prev) => [...prev, fallback]);
+    }
+  };
+
+  return (
+    <div className="chat-container">
+      <div className="chat-header">Chat with Medical Assistant</div>
+      <div className="chat-messages">
+        {messages.map((m, index) => (
+          <div key={m.id || index} className={`chat-message ${m.role}`}>
+            {m.content && m.content.trim() !== ""
+              ? m.content
+              : m.role === "assistant"
+                ? <i>(no reply)</i>
+                : ""}
+          </div>
+        ))}
+      </div>
+      <div className="chat-input">
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Type your message..."
+        />
         <button onClick={sendMessage}>Send</button>
-        </div>
-    )
+      </div>
+    </div>
+  );
 }

@@ -1,0 +1,90 @@
+.appointments-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.appointments-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0078d7;
+}
+
+.appointments-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.appointments-container input:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+.appointments-container button {
+  width: 100%;
+  padding: 12px;
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.appointments-container button:hover {
+  background: #005a9e;
+}
+.book-appointment {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.book-appointment h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0078d7;
+}
+
+.book-appointment input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.book-appointment input:focus {
+  border-color: #0078d7;
+  outline: none;
+}
+
+.book-appointment button {
+  width: 100%;
+  padding: 12px;
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.book-appointment button:hover {
+  background: #005a9e;
+}

@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const crt =require('../controllers/chatcontroller');
+const chatController = require('../controllers/chatcontroller');
+const authware = require('../middleware/authware');
 
-router.post('/',crt.sendMessage);
-router.get('/history',crt.getHistory);
-module.exports=router;
+router.post('/', authware, chatController.sendMessage);
+router.get('/history', authware, chatController.getHistory);
+
+module.exports = router;
